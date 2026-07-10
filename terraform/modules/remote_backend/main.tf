@@ -6,7 +6,7 @@ resource "aws_iam_user" "terraform_user" {
 # Attach AdministratorAccess policy to the IAM user
 resource "aws_iam_user_policy_attachment" "admin_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-  user       = aws_iam_user.terraform_user
+  user       = aws_iam_user.terraform_user.name
 }
 
 # S3 Bucket for Terraform state
@@ -51,7 +51,7 @@ resource "aws_s3_bucket_policy" "s3_bucket_policy" {
         Action   = ["s3:GetObject", "s3:PutObject"],
         Resource = "${aws_s3_bucket.terraform_state_bucket.arn}/*",
         Principal = {
-          AWS = aws_s3_bucket.terraform_state_bucket.arn
+          AWS = aws_iam_user.terraform_user.arn
         }
       }
     ]
@@ -74,6 +74,6 @@ resource "aws_dynamodb_table" "state_lock_table" {
   }
 
   tags = {
-    Name = "var.table_name"
+    Name = var.table_name
   }
 }
