@@ -4,3 +4,7 @@ bucket_name = "terraform-state-bucket-bmoon"
 table_name = "terraform_state_locks"
 root_domain = "brandonmoon.net"
 dns_record_ttl = 300
+website_bucket = "brandonmoon.net"
+force_destroy = false
+index_document = "index.html"
+versioning_enabled = "Enabled"
