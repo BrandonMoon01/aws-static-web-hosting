@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0"
+    }
   }
 }
 
@@ -13,10 +17,20 @@ provider "aws" {
 }
 
 module "backend" {
-  source        = "./modules/remote_backend"
-  iam_user_name = var.iam_user_name
-  bucket_name   = var.bucket_name
-  table_name    = var.table_name
+  source      = "./modules/remote_backend"
+  bucket_name = var.bucket_name
+  table_name  = var.table_name
+}
+
+module "github_oidc" {
+  source              = "./modules/github_oidc"
+  github_org          = var.github_org
+  github_repo         = var.github_repo
+  role_name           = var.github_actions_role_name
+  region              = var.region
+  state_bucket_name   = var.bucket_name
+  website_bucket_name = var.website_bucket
+  lock_table_name     = var.table_name
 }
 
 module "dns_acm" {
@@ -31,7 +45,6 @@ module "s3_website" {
   force_destroy      = var.force_destroy
   versioning_enabled = var.versioning_enabled
   index_document     = var.index_document
-  region             = var.region
 }
 
 module "cloudfront" {

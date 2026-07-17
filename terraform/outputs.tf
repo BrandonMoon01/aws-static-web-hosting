@@ -1,6 +1,6 @@
-output "iam_user_name" {
-  description = "The IAM user for Terraform"
-  value       = module.backend.iam_user_arn
+output "github_actions_role_arn" {
+  description = "ARN of the IAM role GitHub Actions assumes to deploy (set as the AWS_ROLE_ARN secret)"
+  value       = module.github_oidc.github_actions_role_arn
 }
 
 output "s3_bucket_id" {

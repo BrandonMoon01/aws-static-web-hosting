@@ -5,30 +5,45 @@ on:
     branches:
       - main
 
+concurrency:
+  group: deploy-website
+  cancel-in-progress: false
+
+# Required for GitHub's OIDC token so we can assume an AWS role without static keys.
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-1
+  WEBSITE_BUCKET: brandonmoon.net
+
 jobs:
   terraform:
     name: Deploy Infrastructure
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-    defaults: 
+    defaults:
       run:
         working-directory: ./terraform
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
-      
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
       - name: Terraform Setup
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_wrapper: false
 
       - name: Terraform Format
-        run: terraform fmt
+        run: terraform fmt -check -recursive
 
       - name: Terraform Init
         run: terraform init
@@ -42,38 +57,38 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-  Sync_S3:
+  sync_s3:
     name: Sync files to S3 Bucket
     needs: terraform
     runs-on: ubuntu-latest
 
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: us-east-1
-
     steps:
-      - uses: actions/checkout@master
-      - uses: jakejarvis/s3-sync-action@master
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          args: --delete --exclude '.DS_Store'
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
-        env:
-          AWS_S3_BUCKET: brandonmoon.net
-          SOURCE_DIR: ./website
+      - name: Sync website to S3
+        run: aws s3 sync ./website "s3://${WEBSITE_BUCKET}" --delete --exclude ".DS_Store"
 
-  Invalidate_CloudFront:
+  invalidate_cloudfront:
     name: Invalidate CloudFront Distribution
-    needs: Sync_S3
+    needs: sync_s3
     runs-on: ubuntu-latest
 
     steps:
-      - name: Invalidate CloudFront
-        uses: chetan/invalidate-cloudfront-action@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
-        env:
-          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
-          PATHS: "/*"
-          AWS_REGION: "us-east-1"
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.DISTRIBUTION }}" \
+            --paths "/*"

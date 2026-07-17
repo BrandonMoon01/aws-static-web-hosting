@@ -8,11 +8,6 @@ output "s3_bucket_arn" {
   value       = aws_s3_bucket.website_bucket.arn
 }
 
-output "website_url" {
-  description = "The URL of the Website"
-  value       = "http://${aws_s3_bucket_website_configuration.website_config.website_endpoint}"
-}
-
 output "index_document" {
   description = "The index document of the S3 website"
   value       = var.index_document
