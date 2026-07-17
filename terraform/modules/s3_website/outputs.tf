@@ -12,3 +12,13 @@ output "website_url" {
   description = "The URL of the Website"
   value       = "http://${aws_s3_bucket_website_configuration.website_config.website_endpoint}"
 }
+
+output "index_document" {
+  description = "The index document of the S3 website"
+  value       = var.index_document
+}
+
+output "bucket_regional_domain_name" {
+  description = "The regional domain name of the S3 bucket"
+  value       = aws_s3_bucket.website_bucket.bucket_regional_domain_name
+}

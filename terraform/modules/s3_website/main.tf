@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "website_bucket" {
-  bucket = var.website_bucket
+  bucket        = var.website_bucket
   force_destroy = var.force_destroy
 
   tags = {
@@ -35,27 +35,7 @@ resource "aws_s3_bucket_public_access_block" "website_bucket_allow_public_access
   bucket = aws_s3_bucket.website_bucket.id
 
   block_public_acls       = true
-  block_public_policy     = false
+  block_public_policy     = true
   ignore_public_acls      = true
-  restrict_public_buckets = false
-}
-
-resource "aws_s3_bucket_policy" "website_policy" {
-  bucket = aws_s3_bucket.website_bucket.id
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action    = ["s3:GetObject"],
-        Effect    = "Allow",
-        Resource  = ["${aws_s3_bucket.website_bucket.arn}/*"],
-        Principal = "*"
-      },
-    ]
-  })
-
-  depends_on = [
-    aws_s3_bucket_public_access_block.website_bucket_allow_public_access,
-    aws_s3_bucket_ownership_controls.website_ownership,
-  ]
+  restrict_public_buckets = true
 }

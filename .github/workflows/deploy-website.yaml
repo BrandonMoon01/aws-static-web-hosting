@@ -39,11 +39,23 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-       
+
+      - name: Export CloudFront Distribution ID
+        id: tf_outputs
+        run: echo "distribution_id=$(terraform output -raw cloudfront_distribution_id)" >> "$GITHUB_OUTPUT"
+
+    outputs:
+      distribution_id: ${{ steps.tf_outputs.outputs.distribution_id }}
+
   Sync_S3:
     name: Sync files to S3 Bucket
     needs: terraform
     runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: us-east-1
 
     steps:
       - uses: actions/checkout@master
@@ -52,8 +64,8 @@ jobs:
           args: --delete --exclude '.DS_Store'
 
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_S3_BUCKET: brandonmoon.net
-          AWS_REGION: us-east-1
           SOURCE_DIR: ./website
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ needs.terraform.outputs.distribution_id }} --paths "/*"
