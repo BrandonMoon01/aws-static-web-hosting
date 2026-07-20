@@ -3,34 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Brandon Moon's love of fishing and getting out on the water.">
+  <meta name="description" content="Brandon Moon fishing.">
   <title>Fishing — Brandon Moon</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="fishing.html" class="active">Fishing</a>
-      <a href="cars.html">Cars</a>
-      <a href="cooking.html">Cooking</a>
-      <a href="watches.html">Watches</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">BM</span>
+        <span>Brandon Moon</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="fishing.html" class="active">Fishing</a>
+      </div>
     </nav>
   </header>
 
   <main>
-    <h1>Fishing</h1>
-    <p class="subtitle">One of my favorite ways to unwind</p>
+    <section class="hero">
+      <h1><span class="grad">Fishing</span></h1>
+      <p class="lead">
+        Fishing is one of my favorite ways to spend free time. I only started getting into the hobby a couple years ago. Since then, I have spent
+        lots of time (and money!) trying to catch big fish ranging from a bunch of different species!
+      </p>
+    </section>
 
-    <p>
-      I enjoy getting out on the water whenever I can. More stories and favorite spots
-      coming soon.
-    </p>
+    <section class="section">
+      <span class="eyebrow">Home water</span>
+      <h2>Town Lake</h2>
+      <div class="feature">
+        <div class="feature-body">
+          <p>
+            Being in Austin, there is no shortage of great spots to fish. One of my favorites
+            has to be downtown on Lady Bird Lake AKA Town Lake. Nothing beats kayaking around the calm waters
+            in the urban sprawl. 
+          </p>
+        </div>
+        <div class="feature-media">
+          <figure class="photo">
+            <img src="assets/town-lake-bass-2.jpg" alt="Holding up a largemouth bass caught on Town Lake with the Austin skyline behind">
+          </figure>
+        </div>
+      </div>
+
+      <div class="gallery">
+        <figure class="photo">
+          <img src="assets/town-lake-bass-1.jpg" alt="Largemouth bass caught under a bridge on Town Lake">
+        </figure>
+        <figure class="photo">
+          <img src="assets/town-lake-sunrise.jpg" alt="Sunrise over the Austin skyline from a kayak on Town Lake">
+        </figure>
+        <figure class="photo">
+          <img src="assets/town-lake-bass-3.jpg" alt="Releasing a bass back into Town Lake with downtown Austin in the background">
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="eyebrow">March</span>
+      <h2>White bass at "The Steps"</h2>
+      <p class="lead">
+        March has to be one of the best months for fishing. Around this time, the famous white bass run occurs! Me 
+        and my brother love hitting up San Gabriel River to catch this beautiful species. You have to be quick though, 
+        the run is very limited! 
+      </p>
+      <div class="gallery">
+        <figure class="photo tall">
+          <img src="assets/the-steps-white-bass.jpg" alt="Holding a white bass caught at The Steps on a spring day">
+        </figure>
+        <figure class="photo tall">
+          <img src="assets/the-steps-white-bass-stringer.jpg" alt="Three friends with a stringer of white bass at The Steps">
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="eyebrow">New to me</span>
+      <h2>Fly fishing</h2>
+      <p class="lead">
+        Recently, I have picked up fly fishing. Turns out, it's pretty tough! So far, I have only caught 
+        sunfish and a handful of trout. 
+      </p>
+      <div class="gallery">
+        <figure class="photo wide compact">
+          <img src="assets/fly-fishing-trout.jpg" alt="Holding a rainbow trout caught while fly fishing on a river">
+        </figure>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <p>&copy; Brandon Moon</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Brandon Moon</span>
+      <span>&copy; 2026 Brandon Moon · Built and hosted on AWS</span>
+    </div>
   </footer>
 </body>
 </html>

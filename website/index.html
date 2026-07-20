@@ -3,78 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Personal site of Brandon Moon, a Computer Engineering graduate sharing his background, projects, and interests.">
-  <title>Home — Brandon Moon</title>
+  <meta name="description" content="Brandon Moon — software engineer at Dell Technologies. Hobbies include fishing, driving, cooking, and collecting watches.">
+  <title>Brandon Moon — Software Engineer</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="fishing.html">Fishing</a>
-      <a href="cars.html">Cars</a>
-      <a href="cooking.html">Cooking</a>
-      <a href="watches.html">Watches</a>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="brand-mark">BM</span>
+        <span>Brandon Moon</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="fishing.html">Fishing</a>
+      </div>
     </nav>
   </header>
 
   <main>
-    <h1>All About Me: Brandon Moon</h1>
-    <p class="subtitle">Welcome</p>
+    <section class="hero">
+      <span class="hero-badge"><span class="dot"></span> Software Engineer · Dell Technologies</span>
+      <h1>Brandon Moon</h1>
+      <p class="lead">
+        I'm a software engineer at Dell Technologies, currently in the rotation program.
+        Outside of work I enjoy fishing, driving down fun scenic roads, cooking, and collecting watches!
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">Work</a>
+        <a href="#resume" class="btn btn-ghost">Resume</a>
+        <a href="#interests" class="btn btn-ghost">Interests</a>
+      </div>
+    </section>
 
-    <p>
-      Hi, I'm Brandon. This site is a simple home on the web where I share a bit about
-      who I am, what I studied, and the things I enjoy outside of work.
-    </p>
+    <section class="section" id="work">
+      <span class="eyebrow">Work</span>
+      <h2>Dell Technologies</h2>
+      <p class="lead">
+        I'm in Dell's rotation program and have worked across three products. Moving between
+        teams has helped me get comfortable joining a new group and picking up an unfamiliar
+        tech stack quickly. 
+      </p>
 
-    <h2>Education</h2>
-    <p>
-      I graduated from <strong>Texas A&amp;M University</strong> in December 2023 with a
-      <strong>B.S. in Computer Engineering</strong>. My coursework covered software
-      development, systems, and engineering fundamentals — and several classes pushed me
-      to build real projects with a team from start to finish. Along the way I worked
-      with languages like Python, C++, and JavaScript, plus databases and web
-      technologies that I still use today.
-    </p>
+      <div class="card-grid">
+        <div class="tile">
+          <span class="tile-icon">🛡️</span>
+          <h3>PowerProtect</h3>
+          <span class="tile-date">2026 – Present</span>
+          <p>
+            On a "Lead Vehicle" team piloting agentic AI (Devin) and spec-driven development
+            to build new PowerProtect features, and feeding lessons learned back into the
+            process for other engineering teams.
+          </p>
+        </div>
+        <div class="tile">
+          <span class="tile-icon">⚡</span>
+          <h3>PowerMax</h3>
+          <span class="tile-date">2025 – 2026</span>
+          <p>
+            Owned a modular Python package from to assist in bringing up new hardware.
+            Teams now reuse for OS installs, IP configuration, and device discovery on
+            PowerMax arrays drastically reducing manual effort. Also mentored interns on the project.
+          </p>
+        </div>
+        <div class="tile">
+          <span class="tile-icon">🗄️</span>
+          <h3>PowerStore</h3>
+          <span class="tile-date">2024 – 2025</span>
+          <p>
+            Built automation for the OS Foundations team: patching CVEs across Docker
+            containers, trimming image size for faster deploys, and hardening RHEL dev
+            environments against security misconfigurations.
+          </p>
+        </div>
+      </div>
+    </section>
 
-    <h2>College Projects</h2>
-    <p>
-      One of the highlights of my time at A&amp;M was a senior software engineering
-      project (<a href="https://github.com/CSCE315-F22-Taele/Team-61-Project_3">CSCE 315</a>)
-      where my team and I built a full point-of-sale system for Cabo Grill using the
-      PERN stack (PostgreSQL, Express, React, and Node.js).
-    </p>
-    <ul>
-      <li>
-        Designed a clerk-facing interface for taking and processing customer orders
-      </li>
-      <li>
-        Built a manager dashboard with real-time inventory tracking for ingredients
-        and restocking decisions
-      </li>
-      <li>
-        Created a customer-facing page with accessibility and inclusivity in mind,
-        using visual cues and an intuitive layout
-      </li>
-    </ul>
+    <section class="section" id="resume">
+      <span class="eyebrow">Resume</span>
+      <h2>My resume</h2>
+      <p class="lead">
+        A quick preview is below, or grab the PDF directly.
+      </p>
 
-    <h2>Hobbies &amp; Interests</h2>
-    <p>
-      Browse the sections below to learn more about what I do outside of work. I'll be
-      adding more here over time.
-    </p>
+      <div class="resume-preview">
+        <iframe
+          src="assets/brandon-moon-resume.pdf#view=FitH"
+          title="Brandon Moon's resume"
+          loading="lazy"
+        ></iframe>
+      </div>
 
-    <ul class="interests">
-      <li><a href="fishing.html">Fishing</a></li>
-      <li><a href="cars.html">Cars</a></li>
-      <li><a href="cooking.html">Cooking</a></li>
-      <li><a href="watches.html">Watches</a></li>
-    </ul>
+      <div class="hero-actions">
+        <a href="assets/brandon-moon-resume.pdf" class="btn btn-primary" download>Download resume (PDF)</a>
+        <a href="assets/brandon-moon-resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Open in new tab</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="eyebrow">Background</span>
+      <h2>Education</h2>
+      <div class="education-row">
+        <p class="lead">
+          B.S. in Computer Engineering from <strong>Texas A&amp;M University</strong>,
+          Class of 2023. 
+        </p>
+        <img src="assets/tamu-logo.png" alt="Texas A&amp;M University logo" class="edu-logo">
+      </div>
+    </section>
+
+    <section class="section" id="interests">
+      <span class="eyebrow">Interests</span>
+      <h2>Outside of work</h2>
+      <p class="lead">
+        I love picking up new hobbies and trying new things! Below is a list of several of 
+        my current favorite hobbies / interests
+      </p>
+
+      <div class="card-grid">
+        <a class="tile" href="fishing.html">
+          <span class="tile-icon">🎣</span>
+          <h3>Fishing</h3>
+          <p>Town Lake, white bass at The Steps in March, and fly fishing.</p>
+          <span class="tile-cta">View →</span>
+        </a>
+        <div class="tile is-disabled">
+          <span class="tile-badge">Work in progress</span>
+          <span class="tile-icon">🏎️</span>
+          <h3>Cars</h3>
+          <p>Checkout my GR Corolla and Sim Rig addiction</p>
+          <span class="tile-cta">Coming soon</span>
+        </div>
+        <div class="tile is-disabled">
+          <span class="tile-badge">Work in progress</span>
+          <span class="tile-icon">🍳</span>
+          <h3>Cooking</h3>
+          <p>Trying to become a better cook!</p>
+          <span class="tile-cta">Coming soon</span>
+        </div>
+        <div class="tile is-disabled">
+          <span class="tile-badge">Work in progress</span>
+          <span class="tile-icon">⌚</span>
+          <h3>Watches</h3>
+          <p>Check out my growing watch collection</p>
+          <span class="tile-cta">Coming soon</span>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <p>&copy; Brandon Moon</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Brandon Moon</span>
+      <span>&copy; 2026 Brandon Moon · Built and hosted on AWS</span>
+    </div>
   </footer>
 </body>
 </html>
